@@ -12,6 +12,8 @@ urlpatterns = [
     path('add-announcement', addAnnouncement, name='add-announcement'),
     path('add-department', addDepartment, name='add-department'),
     path('add-lab', addLab, name='add-lab'),
+    path('all-lab', allLab, name='all-lab'),
+    path('edit-lab/<int:id>', editLab, name='edit-lab'),
     path('department', department, name='department'),
     path('edit-department/<int:id>', editDepartment, name='edit-department'),
     path('add-doctor', create_doctor, name='add-doctor'),
@@ -22,6 +24,11 @@ urlpatterns = [
     # Staff 
     path('add-staff', create_staff, name='add-staff'),
     path('add-lab-assistant', addLabAssistant, name='add-lab-assistant'),
+    path('all-lab-assistant', allLabAssistant, name='all-lab-assistant'),
+    path('assistant-detail/<int:id>', assistantDetail, name='assistant-detail'),
+    path('assistant-profile>', assistantProfile, name='assistant-profile'),
+    path('assistant-profile-edit/<int:id>', editAssistantProfile, name='assistant-profile-edit'),
+    path('lab-home', labHome, name='lab-home'),
     # Staff 
 
     path('staff-home',  staffHome, name='staff-home'),
@@ -39,7 +46,7 @@ urlpatterns = [
     # path('delete-medicine/<int:id>',  deleteMedicine, name='delete-medicine'),
     path('test/<int:id>',  goForTest, name='test'),
     path('tests/<int:id>/<sts>', tests, name='tests'),
-    path('ptest', PendingTest, name='ptest'),
+    path('pending-test', PendingTest, name='pending-test'),
     path('report/<int:id>', testReportAdd, name='report'),
     path('testReport/<int:id>', testReport, name='testReport'),
 ]

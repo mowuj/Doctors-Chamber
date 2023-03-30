@@ -1,0 +1,62 @@
+{% extends "lab/labBase.html" %}
+
+{% block title %}
+Lab Assistant Profile
+{% endblock title %}
+{% block body %}
+<style>
+    .card {
+        padding: 1.5em .5em .5em;
+        border-radius: 2em;
+        text-align: center;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+
+    }
+</style>
+
+<div class="container">
+    <div class="row d-flex justify-content-center mt-5 mb-5">
+        <div class="col-md-6 m-auto">
+            <h4 class="bg-info p-2 text-center rounded">{{request.user|title}} Profile</h4>
+        </div>
+    </div>
+    <div class="profile col-md-10 m-auto">
+        <div class="jumbotron pt-2 pb-2">
+            <div class="title text-center mb-3">
+
+            </div>
+            <div class="row ">
+                <div class="col-lg-4">
+                    <a href="{% url 'assistant-profile-edit' profile.id %}"><img style="width:200px;height:200px;"
+                            src="{{profile.photo.url}}" class=" img-fluid rounded-circle" alt=""></a>
+
+                </div>
+                <div class="col-lg-4">
+
+                    <!-- <p>User Name: {{profile.user.username|title}}</p> -->
+                    <p>Full Name:{{profile.name}}</p>
+                    <p>Staff ID:{{profile.staff_id}}</p>
+                    <p>Lab:{{profile.lab.name}}</p>
+                    <p>Degree: {{profile.degree1}}</p>
+                    <p>Institute: {{profile.institute1}}</p>
+                    <p>Degree: {{profile.degree2}}</p>
+                    <p>Institute: {{profile.institute2}}</p>
+                    <p>Degree: {{profile.degree3}}</p>
+                    <p>Institute: {{profile.institute3}}</p>
+                
+                </div>
+                <div class="col-lg-4">
+                    <p>Phone Number:{{profile.phone}}</p>
+                    <p>Email Address: {{ profile.email }}</p>
+                    <p>NID : {{ profile.nid }}</p>
+                    <p>Father Name: {{profile.father_name}}</p>
+                    <p>Mother Name: {{profile.mother_name}}</p>
+                    <p>Permanent Address: {{ profile.permanent_address }}</p>
+                    <p>Present Address: {{ profile.present_address }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock body %}

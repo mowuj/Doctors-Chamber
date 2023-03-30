@@ -18,6 +18,10 @@ def user_login(request):
             elif user is not None and Staff.objects.filter(user=user).exists():
                 login(request, user)
                 return redirect('staff-home')
+            
+            elif user is not None and LabAssistant.objects.filter(user=user).exists():
+                login(request, user)
+                return redirect('lab-home')
             elif user is not None and Admin.objects.filter(user=user).exists():
                 login(request, user)
                 return redirect('/')
@@ -216,7 +220,6 @@ def staffHome(request):
     announcement=Announcement.objects.all()
     images=RelatedImages.objects.all()
     return render(request, 'staff/staffHome.html', { 'doctor': doctor, 'announcement': announcement, 'images': images})
-    # return render(request,'staff/staffHome.html')
 
 def allStaff(request):
     staff = Staff.objects.all()
@@ -233,7 +236,6 @@ def staffProfile(request):
     context={'profile':profile}
     return render(request,'staff/staffProfile.html',context)
 
-
 def editStaffProfile(request,id):
     doctor=Staff.objects.get(id=id)
     form=StaffAddForm(instance=doctor)
@@ -244,6 +246,7 @@ def editStaffProfile(request,id):
             return redirect('staff-profile')
     context={'form':form}
     return render(request,'staff/staff-profile-edit.html',context)
+
 def takeSerial(request):
     if request.method=='POST':
         form = SerialForm(request.POST, request.FILES)
@@ -339,6 +342,12 @@ def patient(request,id):
 #     medicine = medicine.delete()
 #     return redirect('patient')
 # Test 
+def labHome(request):
+    lab=Lab.objects.all()
+    doctor=Doctor.objects.all()
+    announcement=Announcement.objects.all()
+    images=RelatedImages.objects.all()
+    return render(request, 'lab/labHome.html', {'lab':lab, 'doctor': doctor, 'announcement': announcement, 'images': images})
 
 def addLab(request):
     form = LabAddForm()
@@ -351,19 +360,21 @@ def addLab(request):
     form = LabAddForm()
     context = {'form': form}
     return render(request, 'admin/add-lab.html', context)
-# def editDepartment(request,id):
-#     department = Department.objects.get(id=id)
-#     form = DepartmentAddForm(instance=department)
-#     if request.method == 'POST':
-#         form = DepartmentAddForm(request.POST, request.FILES,instance=department)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('department')
-#     context = {'form': form}
-#     return render(request, 'admin/edit-department.html', context)
-# def department(request):
-#     dept=Department.objects.all()
-#     return render (request,'admin/department.html',{'dept':dept})
+
+def editLab(request,id):
+    lab = Lab.objects.get(id=id)
+    form = LabAddForm(instance=lab)
+    if request.method == 'POST':
+        form = LabAddForm(request.POST, request.FILES,instance=lab)
+        if form.is_valid():
+            form.save()
+            return redirect('all-lab')
+    context = {'form': form}
+    return render(request, 'admin/edit-lab.html', context)
+
+def allLab(request):
+    lab=Lab.objects.all()
+    return render (request,'admin/all-lab.html',{'lab':lab})
 
 def addLabAssistant(request):
     if request.method == 'POST':
@@ -383,7 +394,31 @@ def addLabAssistant(request):
     context = {'fm': fm, 'form': form}
     return render(request, 'admin/add-lab-assistant.html', context)
 
+def allLabAssistant(request):
+    lab = LabAssistant.objects.all()
+    context = {'lab': lab}
+    return render(request, 'admin/all-assistant.html', context)
 
+def assistantDetail(request,id):
+    detail=LabAssistant.objects.filter(id=id)
+    context={'detail':detail}
+    return render(request,'lab/assistant-detail.html',context)
+
+def assistantProfile(request):
+    profile=LabAssistant.objects.get(user=request.user)   
+    context={'profile':profile}
+    return render(request,'lab/assistantProfile.html',context)
+
+def editAssistantProfile(request,id):
+    assistant=LabAssistant.objects.get(id=id)
+    form=LabAssistantForm(instance=assistant)
+    if request.method=='POST':
+        form=LabAssistantForm(request.POST,request.FILES,instance=assistant)
+        if form.is_valid():
+            form.save()
+            return redirect('assistant-profile')
+    context={'form':form}
+    return render(request,'lab/assistant-profile-edit.html',context)
 
 def goForTest(request,id):
     # test_id=request.session.get("test_id",None)
@@ -399,7 +434,7 @@ def goForTest(request,id):
 def PendingTest(request):
     patient = Serial.objects.filter(test_submit=True)
     context = {'patient': patient}
-    return render(request, 'testList.html', context)
+    return render(request, 'lab/testList.html', context)
 
 def tests(request,id,sts):
     patient = Serial.objects.get(id=id)

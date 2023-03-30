@@ -1,7 +1,7 @@
-{% extends "staff/staffBase.html" %}
+{% extends "lab/labBase.html" %}
 
 {% block title %}
-Doctor Detail
+lab Assistant Detail
 {% endblock title %}
 {% block body %}
 <div class="row">
@@ -19,8 +19,7 @@ Doctor Detail
                         <br>
                         <td>Staff ID: {{ i.staff_id }}</td>
                         <br>
-                        <td>Doctor: {{ i.doctor.name }}</td>
-                        <br>
+                        
                         <td>Title: {{ i.title }}</td>
                         <br>
                         <td>Join Date: {{ i.join_date }}</td>
@@ -34,7 +33,7 @@ Doctor Detail
     <div class="col-lg-5">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Doctor Photo
+                <i class="fa fa-align-justify"></i> Assistant Photo
             </div>
             <div class="card-body text-center">
 
@@ -85,12 +84,19 @@ Doctor Detail
             <div class="card-body">
                 <tbody>
                     <tr>
-                        <td>SSC: {{i.ssc}}</td>
+                        <td>Degree: {{i.degree1}}</td>
                         <br>
-                        <td>HSC: {{i.hsc}}</td>
+                        <td>Institute: {{i.institute1}}</td>
                         <br>
-                        <td>Graduate: {{i.i.honor}}</td>
+                        <td>Degree2: {{i.degree2}}</td>
                         <br>
+                        <td>Institute2: {{i.institute2}}</td>
+                        <br>
+                        <td>Degree3: {{i.degree3}}</td>
+                        <br>
+                        <td>Institute3: {{i.institute3}}</td>
+                        <br>
+                        
                         
                     </tr>
                 </tbody>

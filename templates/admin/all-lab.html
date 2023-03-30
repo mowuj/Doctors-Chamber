@@ -1,0 +1,32 @@
+{% extends "admin/adminBase.html" %}
+
+{% block title %}
+Our Lab
+{% endblock title %}
+{% block body %}
+<div class="container">
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-md-4 mt-2 mb-3 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-2">Our labs</h4>
+        </div>
+    </div>
+    <div class="row g-2">
+        {% for i in lab %}
+        <div class="col-md-3">
+            <div class="card text-center">
+                <a href="{% url 'edit-lab' i.id %}"><img src="{{i.photo.url}}"
+                        class="card-img-top img-fluid img-thumbnail" style="height:200px" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title">{{i.name}}</h5>
+                    <p class="card-text">Manager: {{i.manager}}</p>
+                    <p class="card-text">Address: {{i.address}}</p>
+                    <p>Total Assistant: {{i.labassistant_set.all.count}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock body %}

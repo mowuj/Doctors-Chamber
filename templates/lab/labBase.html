@@ -21,7 +21,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Doctor</a>
+                <!-- <a class="navbar-brand" href="#">Doctor</a> -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,10 +29,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'take-serial' %}">Take Serial</a>
+                            <a class="nav-link active" href="{% url 'pending-test' %}">Pending Test</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'today-serial' %}">Today Patient</a>
+                            <a class="nav-link active" aria-current="page" href="">New Test</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="">Reports</a>
                         </li>
                      
                        
@@ -55,12 +58,12 @@
                         <li class="nav-item dropdown ms-2">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <img style="width:30px;height:30px;" src="{{ request.user.staff.photo.url}}"
+                                <img style="width:30px;height:30px;" src="{{ request.user.labassistant.photo.url}}"
                                     class="rounded-circle" alt="{{request.user.username}}">
                             </a>
                             <ul class="dropdown-menu">
-                                {%if request.user.staff%}
-                                <li><a class="dropdown-item" href="{% url 'staff-profile'%}">Profile</a></li>
+                                {%if request.user.labassistant%}
+                                <li><a class="dropdown-item" href="{% url 'assistant-profile' %}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                                 {% else %}
                                 <li><a class="dropdown-item" href="{% url 'doctor-login' %}">login</a></li>
