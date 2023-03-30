@@ -21,60 +21,46 @@ Doctor Dashboard
                 <div>
                     <h5 class="text-center">Test Report</h5>
 
-                    {% for i in serial.test_set.all %}
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <h4 class="text-center"> Test Name: {{i.name}}</h4>
-                            {% for i in i.testreport_set.all %}
-                            <h5>Minimum Point: {{i.min_point}}</h5>
-                            <h5>Point: {{i.point}}</h5>
-                            <h5>Maximum Point: {{i.max_point}}</h5>
-                                
-                            {% endfor %}
-                        </div>
                     
-                    {% endfor %}
-
-
-
-                    <!-- <div class="row">
-                        <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Index</th>
-                                        <th scope="col">Name of Test</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for i in serial.test_set.all %}
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>{{i.name}}</td>
-                                        <td>{{i.name.price}}</td>
-                                        <td><a href="{% url 'report' i.id%}">Go</a></td>
-                                        {% for i in i.testreport_set.all %}
-                                        <td>{{i.test_name}}</td>
-                                        <td>{{i.point}}</td>
+                        <div class="row">
+                            <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Index</th>
+                                            <th scope="col">Name of Test</th>
+                                            <th scope="col">Maximum Point</th>
+                                            <th scope="col">Current Point</th>
+                                            <th scope="col">Minimum Point</th>
+                                            <th scope="col">Report_by</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in serial.test_set.all %}
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>{{i.name}}</td>
+                                            {% for p in i.testreport_set.all %}
+                                            <td>{{p.max.point}}</td>
+                                            <td>{{p.point}}</td>
+                                            <td>{{p.min.point}}</td>
+                                            <td>{{p.report_by.name}}</td>
+                                            {% endfor %}
+                        
+                                        </tr>
+                        
                                         {% endfor %}
-                                    </tr>
-
-                                    {% endfor %}
-                                    <tr>
-
-                                        <th colspan="2" class="text-end">Total=</th>
-                                        <th>TK</th>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button>Submit</button>
-
+                                        
+                                    </tbody>
+                                </table>
+                               
+                        
+                            </div>
                         </div>
-                    </div> -->
+
                 </div>
             </div>
         </div>
+        <button onclick="window.print()" class="btn btn-primary mt-3 non-printable">Print</button>
 </div>
 {% endblock body %}

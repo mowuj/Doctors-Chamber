@@ -108,6 +108,7 @@ Prescription
                                     <td>{{i.night}}</td>
                                     <td class="text-center"><a href="{% url 'delete-medicine' i.id%}"><i class="fa-solid fa-delete-left"></i></a></td>
                                 </tr>
+                                
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -117,8 +118,7 @@ Prescription
                 </div>
 
             </div>
-
-
+            <a class="btn btn-primary" href=" {% url 'getp' serial.id %} ">Done</a>
     </div>
   
 

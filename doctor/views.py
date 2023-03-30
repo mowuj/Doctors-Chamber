@@ -267,8 +267,9 @@ def todaySerial(request):
         visit_date__date=datetime.now(), done_status=True)
     previous = Serial.objects.filter(
         visit_date__date=datetime.now(),waiting_status=False, submit_status=False, done_status=False,)
+    wait_test = Serial.objects.filter(test_pending=True)
     print(today)
-    context = {'today': today, 'previous': previous, 'waiting_status': waiting_status, 'submit_status': submit_status,"done_status": done_status}
+    context = {'today': today, 'previous': previous, 'waiting_status': waiting_status, 'submit_status': submit_status,"done_status": done_status,'wait_test':wait_test}
     return render(request,'doctor/today-serial.html',context)
 
 def moveSerial(request,id,sts):
@@ -300,12 +301,18 @@ def deleteSerial(request,id):
 
 def patient(request,id):
     serial=Serial.objects.get(id=id)
+    serial.done_status = True
+    serial.submit_status = False
+    serial.waiting_status = False
+    serial.save()
+    # wait_test = Serial.objects.filter(test_pending=True,)
     print=(serial)
     if request.method == 'POST':
         form = MedicineForm(request.POST, request.FILES)
         if form.is_valid():
             patient=form.save(commit=False)
             patient.patient = serial
+            
             patient.save()
             return redirect('patient' ,id)
     form = MedicineForm()
@@ -332,10 +339,16 @@ def patient(request,id):
     symForm = SymptomForm()
 
     context={
-        'serial': serial, 'form': form, 'testForm': testForm, 'symForm':symForm
+        'serial': serial, 'form': form, 'testForm': testForm, 'symForm':symForm,
     }
     return render(request, 'doctor/patient.html',context)
 
+def getPrescription(request,id):
+    serial=Serial.objects.get(id=id)
+    print(id)
+    print(serial)
+    context={'serial':serial}
+    return render(request, 'doctor/getPrescription.html',context)
 
 def deleteMedicine(request, id):
     medicine = Medicine.objects.get(id=id)
@@ -421,30 +434,12 @@ def editAssistantProfile(request,id):
     return render(request,'lab/assistant-profile-edit.html',context)
 
 def goForTest(request,id):
-    # test_id=request.session.get("test_id",None)
-    # test = Test.objects.get(id=test_id)
-    # print(test_id)
-    # print(test)
+
     lab=Lab.objects.all()
     patient=Serial.objects.get(id=id)
     test = patient.test_set.filter(pending_status=False, submit_status=False, done_status=False)
     context = {'lab': lab, 'patient': patient, 'test': test}
     return render(request,'lab/goForTest.html',context)
-
-# def ttest(request,pk):
-#     test=TestReport.objects.filter(id=pk)
-#     form = TestReportForm()
-#     if request.method == 'POST':
-#         form = TestReportForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             testForm = form.save(commit=False)
-#             testForm.test_name=test
-#             testForm.save()
-#             # form.save()
-#             return redirect('report', id)
-#     form = TestReportForm()
-#     return redirect(request.META['HTTP_REFERER'])
-
 
 
 def PendingTest(request):
@@ -452,22 +447,27 @@ def PendingTest(request):
     context = {'patient': patient}
     return render(request, 'lab/testList.html', context)
 
+def submitTest(request,id):
+    patient = Serial.objects.get(id=id)
+    patient.test_submit=False
+    patient.test_pending=False
+    patient.test_done=True
+    patient.save()
+    print(id)
+    print(patient)
+    context = {'patient': patient}
+    return redirect('pending-test')
+
 def tests(request,id,sts):
     patient = Serial.objects.get(id=id)
     pending = Serial.objects.filter(
         test_pending=False, test_submit=True, test_done=False)
-    # amount=0.0
-    # total=0.0
-    # test=[p for p in LabTest.objects.all()]
-    # if test:
-    #     for p in test:
-    #         amount+=p.price
-    #         print(amount)
     if sts == 'submit':
         patient.test_pending = True
         patient.test_submit = False
         patient.test_done = False
         patient=patient.save()
+
         return redirect('test',id)
 
 def testReportAdd(request,id):
@@ -484,6 +484,7 @@ def testReportAdd(request,id):
         if form.is_valid():
             testForm = form.save(commit=False)
             testForm.test_name=test
+            # testForm.report_by=request 
             testForm.save()
             # form.save()
             return redirect('report', id)

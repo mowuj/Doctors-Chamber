@@ -226,11 +226,12 @@ class LabAssistant(models.Model):
         return str(self.name)
 
 class LabTest(models.Model):
+    lab=models.ForeignKey(Lab, on_delete=models.CASCADE,blank=True,null=True)
     name = models.CharField(max_length=150)
     price=models.PositiveIntegerField(default=0)
     min_point= models.FloatField(blank=True,null=True)
     mix_point = models.FloatField(blank=True, null=True)
-    
+    total_price=models.PositiveIntegerField(default=0)
     def __str__(self):
         return str(self.name)
 
@@ -251,6 +252,8 @@ class Symptom(models.Model):
         return str(self.patient.name)
 
 class TestReport(models.Model):
+    report_by=models.ForeignKey(LabAssistant, on_delete=models.CASCADE,blank=True,null=True)
+    # doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE,blank=True,null=True)
     # patient = models.ForeignKey(Serial, on_delete=models.CASCADE,blank=True,null=True)
     test_name = models.ForeignKey(Test, on_delete=models.CASCADE,blank=True,null=True)
     point= models.FloatField()

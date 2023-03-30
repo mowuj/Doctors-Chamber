@@ -35,10 +35,13 @@ Test
                             <tbody>
                                 {% for i in patient.test_set.all %}
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">{{forloop.counter}}</th>
                                     <td>{{i.name}}</td>
                                     <td>{{i.name.price}}</td>
+                                    {% if i.point == 0 %}
                                     <td><a href="{% url 'report' i.id%}">Go</a></td>
+                                    {% endif %}
+                                   
                                 </tr>
                                 {% endfor %}
                                 <tr>
@@ -49,12 +52,13 @@ Test
                                 </tr>
                             </tbody>
                         </table>
-                        <button>Submit</button>
+                        <button><a href="{% url 'submitTest' patient.id %}">Submit</a></button>
                         
                     </div>  
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
 {% endblock body %}

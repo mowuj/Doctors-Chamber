@@ -250,7 +250,7 @@ class TestForm(forms.ModelForm):
 class TestReportForm(forms.ModelForm):
     class Meta:
         model = TestReport
-        fields =['point']
+        fields =['point','report_by']
 
 class MedicineForm(forms.ModelForm):
     class Meta:
