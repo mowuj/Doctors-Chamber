@@ -1,0 +1,122 @@
+{% extends "doctor/doctorBase.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Today Serial
+{% endblock title %}
+{% block body %}
+
+
+<div class="container">
+<div class="container">
+    <div class="row d-flex justify-content-center mt-2">
+        <div>
+            {% if request.user.staff %}
+            <a class="btn btn" href="{% url 'staff-home' %}"><i class="fa-solid fa-arrow-left"></i></a>
+            {% endif %}
+        </div>
+        <div class="col-md-6 mt-2 mb-2 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-2">Running Patient</h4>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Serial Number</th>
+                <th scope="col">Name</th>
+
+                <th scope="col">Address</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in submit_status %}
+            <th scope="row">{{forloop.counter}}.</th>
+            <td>{{ i.number }}</td>
+            <td>{{i.name}}</td>
+
+            <td>{{i.address}}</td>
+            <td>
+                {% if i.waiting_status == True %}<a type="button" class="btn btn-outline-primary"
+                    href="{% url 'move-serial' i.id 'submit'%}">Submit</a>
+                {% elif i.submit_status == True %}
+                <!-- <a type="button" class="btn btn-outline-primary" href="{% url 'move-serial' i.id 'done'%}">Done</a> -->
+                {% if request.user.doctor %}
+                <a type="button" class="btn btn-outline-primary" href="{% url 'patient' i.id%}">Prescription</a>
+                {% endif %}
+                {% endif %}
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row d-flex justify-content-center mt-2">
+        <div class="col-md-6 mt-2 mb-2 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-2">Upcoming Patient</h4>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Serial Number</th>
+                <th scope="col">Name</th>
+
+                <th scope="col">Address</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in waiting_status %}
+            <th scope="row">{{forloop.counter}}.</th>
+            <td>{{ i.number }}</td>
+            <td>{{i.name}}</td>
+
+            <td>{{i.address}}</td>
+            <td>
+
+
+                <a type="button" class="btn btn-outline-primary" href="{% url 'move-serial' i.id 'submit'%}">Submit</a>
+                <a type="button" class="btn btn-outline-danger" href="{% url 'delete-serial' i.id%}">Cancel</a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="row d-flex justify-content-center mt-2">
+        <div class="col-md-6 mt-2 mb-2 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-2">Previous Patient</h4>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Serial Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <!-- <th scope="col">Action</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in previous %}
+            <th scope="row">{{forloop.counter}}.</th>
+            <td>{{ i.number }}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.address}}</td>
+            <td>
+
+                <!-- <a type="button" class="btn btn-outline-danger" href="{% url 'delete-serial' i.id%}">Cancel</a> -->
+                <!-- <a type="button" class="btn btn-outline-primary"href="{% url 'move-serial' i.id 'submit'%}">Submit</a> -->
+
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+{% endblock body %}

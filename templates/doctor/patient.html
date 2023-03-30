@@ -1,0 +1,154 @@
+{% extends "doctor/doctorBase.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Doctor Dashboard
+{% endblock title %}
+{% block body %}
+    <div class="container">
+            <h3 class="text-center">DR. {{serial.doctor.name}}</h4>
+            <h6 class="text-center">{{serial.doctor.undergraduate}} ({{serial.doctor.college}}) {{serial.doctor.graduate}} ({{serial.doctor.institute}}) {{serial.doctor.degree}}</h6>
+            <h6 class="text-center">{{serial.doctor.hospital}}</h6>
+            <div class="border"></div>
+            <div class="my-2">
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn btn" onclick="toggleForm()">Medicine</button>
+                    <button class="btn btn" onclick="testForm()">Test</button>
+                    <button class="btn btn" onclick="symForm()">Symptoms</button>
+                    <!-- <button>Go for Test</button> -->
+                    <a class="btn btn" href="">Go For Test</a>
+                    
+                    <a class="btn btn " href="{% url 'testReport' serial.id %}">Reports</a>
+                    <!-- <button><a href="">Submit</a></button> -->
+                    
+                    
+                </div>
+                <div>
+                    <form action="" method="post" enctype="multipart/form-data" id="myForm" style="display:none;">
+                        {%csrf_token%}
+                        {{form}} <button type="submit" class="btn btn-info badge-pill mx-2">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <form action="" method="post" enctype="multipart/form-data" id="testForm" style="display:none;">
+                    {%csrf_token%}
+                    {{testForm}} <button type="submit" class="btn btn-info badge-pill mx-2">Submit</button>
+                </form>
+            </div>
+            <div>
+                <form action="" method="post" enctype="multipart/form-data" id="symForm" style="display:none;">
+                    {%csrf_token%}
+                    {{symForm}} <button type="submit" class="btn btn-info badge-pill mx-2">Submit</button>
+                </form>
+            </div>
+                <div class="border"></div>
+
+            <div class="row my-2">
+                <div class="col-md-2">
+                   <div class="mt-5">
+                    
+                    <div>
+                        <h5 class="text-center">Symptoms</h5>
+                        <p >Pressure: {{serial.pressure}}</p>
+                        <p class="lh-1">Weight: {{serial.weight}}</p>
+                        <p class="lh-1">  {% for s in serial.symptom_set.all %} {{s.symptom}} , {% endfor %}</p>
+                        
+                    </div>
+                    <div>
+                        <h5 class="text-center">Test</h5>
+                        {% for i in serial.test_set.all %}
+                        <h6 style="display:inline"> {{i.name}} , </h6>
+                        <!-- <button><a href="">Submit</a></button> -->
+                        {% endfor %}
+                    </div>
+                   </div>
+                </div>
+                <div class="col-md-10 ">
+                    <div class="d-flex justify-content-around">
+                        <p>Name: {{serial.name}}</p>
+                        <p>Gender: {{serial.gender}}</p>
+                        <p>Age: {{serial.age}}</p>
+                    </div>
+
+                    <div>
+                        <h4>RX.</h4>
+                        
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col" >Medicine</th>
+                                    <th scope="col" colspan="2" class="text-center">Morning</th>
+                                    <th scope="col" colspan="2" class="text-center">Midday</th>
+                                    <th scope="col" colspan="2" class="text-center">Night</th>
+                                    <th>Delete</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Before</th>
+                                    <th>After</th>
+                                    <th>Before</th>
+                                    <th>After</th>
+                                    <th>Before</th>
+                                    <th>After</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in serial.medicine_set.all %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{i.name}}</td>
+                                    <td>{{i.before_breakfast}}</td>
+                                    <td>{{i.morning}}</td>
+                                    
+                                    <td>{{i.before_lunch}}</td>
+                                    <td>{{i.midday}}</td>
+                                    <td>{{i.before_dinner}}</td>
+                                    <td>{{i.night}}</td>
+                                    <td class="text-center"><a href=""><i class="fa-solid fa-delete-left"></i></a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+
+    </div>
+  
+
+    {% block js %}
+      <script>
+        function toggleForm() {
+                var form = document.getElementById("myForm");
+                if (form.style.display === "none") {
+                    form.style.display = "block";
+                } else {
+                    form.style.display = "none";
+                }
+            }
+        function testForm() {
+                var form = document.getElementById("testForm");
+                if (form.style.display === "none") {
+                    form.style.display = "block";
+                } else {
+                    form.style.display = "none";
+                }
+            }
+        function symForm() {
+                var form = document.getElementById("symForm");
+                if (form.style.display === "none") {
+                    form.style.display = "block";
+                } else {
+                    form.style.display = "none";
+                }
+            }
+      </script>
+    {% endblock js %}
+
+{% endblock body %}

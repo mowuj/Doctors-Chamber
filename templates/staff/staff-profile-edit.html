@@ -1,0 +1,118 @@
+{% extends "staff/staffBase.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Staff Profile
+{% endblock title %}
+{% block body %}
+
+
+<div class="container">
+    <div class="row d-flex justify-content-center mt-2">
+        <div class="col-md-6 mt-2 mb-2 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-3">Edit Staff Information</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <form class="row g-4" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                
+                <div class="col-md-4">
+                    <label for="inputName4" class="form-label">Name</label>
+                    {{form.name}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputName4" class="form-label">Staff ID</label>
+                    {{form.staff_id}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputName4" class="form-label">Doctor</label>
+                    {{form.doctor}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputEmail4" class="form-label">Title</label>
+                    {{form.title}}
+                </div>
+                
+                
+                <div class="col-md-4">
+                    <label for="inputName4" class="form-label">Staff Email</label>
+                    {{form.email}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputPhone4" class="form-label">Phone </label>
+                    {{form.phone}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputPhone4" class="form-label">Join Date </label>
+                    {{form.join_date}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputNid4" class="form-label">Gender</label>
+                    {{form.gender}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputNid4" class="form-label">Birth Date</label>
+                    {{form.birth_date}}
+                </div>
+            
+            
+                <div class="col-md-3">
+                    <label for="inputDistrict" class="form-label">SSC</label>
+                    {{form.ssc}}
+                </div>
+                <div class="col-md-3">
+                    <label for="inputSsc" class="form-label">HSC</label>
+                    {{form.hsc}}
+                </div>
+                <div class="col-md-3">
+                    <label for="inputHsc" class="form-label">Honor's</label>
+                    {{form.honor}}
+            
+                </div>
+            
+            
+                <div class="col-md-4">
+                    <label for="inputNid4" class="form-label">NID</label>
+            
+                    {{form.nid}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputNid4" class="form-label">Father Name</label>
+            
+                    {{form.father_name}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputNid4" class="form-label">Mother Name</label>
+            
+                    {{form.mother_name}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputNid4" class="form-label">Permanent Address</label>
+            
+                    {{form.permanent_address}}
+                </div>
+                <div class="col-md-4">
+                    <label for="inputImage" class="form-label">Present Address</label>
+                    {{form.present_address}}
+                </div>
+            
+                <div class="col-md-4">
+                    <label for="inputImage" class="form-label">Photo</label>
+                    {{form.photo}}
+                </div>
+            
+                <div class="col-md-12 my-3 ">
+                    <div class="d-grid gap-2 col-4 mx-auto d-block">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="reset">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock body %}

@@ -1,0 +1,77 @@
+{% extends "staff/staffBase.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Take Serial
+{% endblock title %}
+{% block body %}
+
+
+<div class="container">
+    <div class="row d-flex justify-content-center mt-2">
+        <div class="col-md-6 mt-2 mb-2 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-xl-2">Take Serial</h4>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <form class="row g-4" method="POST">
+            {% csrf_token %}
+            
+            <div class="col-md-4">
+                <label for="inputName4" class="form-label">Doctor</label>
+                {{form.doctor}}
+            </div>
+            <div class="col-md-4">
+                <label for="inputName4" class="form-label">Serial Number</label>
+                {{form.number}}
+            </div>
+            <div class="col-md-4">
+                <label for="inputName4" class="form-label">Patient Name</label>
+                {{form.name}}
+            </div>
+
+            <div class="col-md-4">
+                <label for="inputName4" class="form-label">Patient Gender</label>
+                {{form.gender}}
+            </div>
+            <div class="col-md-4">
+                <label for="inputName4" class="form-label">Patient Age</label>
+                {{form.age}}
+            </div>
+
+            <div class="col-md-4">
+                <label for="inputName4" class="form-label">Patient Blood pressure</label>
+                {{form.pressure}}
+            </div>
+            
+            <div class="col-md-4">
+                <label for="inputPhone4" class="form-label">Visit Date </label>
+                {{form.visit_date}}
+                </div>
+            <div class="col-md-4">
+                <label for="inputPhone4" class="form-label">Issue Date </label>
+                {{form.issue_date}}
+                </div>
+            <div class="col-md-4">
+                <label for="inputImage" class="form-label">Patient Address</label>
+                {{form.address}}
+            </div>
+            <div class="col-md-4">
+                <label for="inputImage" class="form-label">Paid</label>
+                {{form.paid}}
+            </div>
+
+
+            <div class="col-md-12 my-3 ">
+                <div class="d-grid gap-2 col-4 mx-auto d-block">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="reset">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+    
+
+{% endblock body %}

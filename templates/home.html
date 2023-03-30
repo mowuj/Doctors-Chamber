@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}
+home
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+    <!-- Announcement  -->
+    <style>
+        
+        .scroll-left {
+            white-space: nowrap;
+            height: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
+            background: rgb(245, 245, 171);
+            color: black;
+            border: 1px solid orange;
+        }
+    
+        .scroll-left p {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            line-height: 50px;
+            text-align: center;
+            /* Starting position */
+            transform: translateX(100%);
+            /* Apply animation to this element */
+            animation: scroll-left 30s linear infinite;
+        }
+    
+        /* Move it (define the animation) */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+    
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+    <div class="row d-flex flex-row mb-3">
+        <div class="col-md-2">
+            <h4>Announcement</h4>
+        </div>
+        <div class="scroll-left col-md-10">
+            
+            <p>{% for i in announcement %} * {{i.name}}  {% endfor %}</p>
+            
+        
+        </div>
+    </div>
+    <!-- Announcement  -->
+    <!-- Slider  -->
+    <div class="row mb-4">
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+                {% for i in images %}
+                <div class="carousel-item active">
+                    <img src="{{i.photo.url}}" class="d-block w-100 img-fluid" alt="..." style="width:100vh;height:75vh">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="text-info">{{i.caption}}</h5>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- Slider  -->
+
+<div>
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-md-4 mt-2 mb-3 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-2">Reports</h4>
+        </div>
+    </div>
+    <div class="row bg-secondary w-100 h-40vh p-2">
+        <div class="col-md-4">
+            <div class="card text-center">
+    
+                <div class="card-body">
+                    <h4 class="card-title">Total Doctor</h4>
+                    <h4 class="card-title">{{doctor.count}}</h4>
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+    
+                <div class="card-body">
+                    <h4 class="card-title">Total Staff</h4>
+                    <h4 class="card-title">{{staff.count}}</h4>
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+    
+                <div class="card-body">
+                    <h4 class="card-title">Today Patient</h4>
+                    <h4 class="card-title">{{patient.count}}</h4>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row d-flex justify-content-center mt-3 m">
+        <div class="col-md-4 mt-2 mb-3 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-2">Departments</h4>
+        </div>
+    </div>
+    <div class="row g-4 mb-3">
+        {% for i in dept %}
+        <div class="col-md-3">
+            <div class="card text-center">
+                
+                <div class="card-body">
+                    <h4 class="card-title">{{i.name}}</h4>
+                    <p class="card-text">Manager: {{i.manager}}</p>
+                        <p>Total Doctor: {{i.doctor_set.all.count}}</p>
+                     <p></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+
+{% endblock body %}

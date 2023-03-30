@@ -1,0 +1,83 @@
+{% extends "admin/adminBase.html" %}
+
+{% block title %}
+home
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+    <!-- Announcement  -->
+    <!-- slider  -->
+<div class="container">
+    {% include 'abc.html' %}
+</div>
+    <!-- Announcement  -->
+    <!-- slider  -->
+
+    <div>
+        <div class="row d-flex justify-content-center mt-3">
+            <div class="col-md-4 mt-2 mb-3 ">
+                <h4 class="bg-primary text-center text-light badge-pill p-2">Reports</h4>
+            </div>
+        </div>
+        <div class="row bg-secondary w-100 h-40vh p-2">
+            <div class="col-md-4">
+                <div class="card text-center">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Total Doctor</h4>
+                        <h4 class="card-title">{{doctor.count}}</h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Total Staff</h4>
+                        <h4 class="card-title">{{staff.count}}</h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Today Patient</h4>
+                        <h4 class="card-title">{{patient.count}}</h4>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center mt-3 m">
+        <div class="col-md-4 mt-2 mb-3 ">
+            <h4 class="bg-primary text-center text-light badge-pill p-2">Departments</h4>
+        </div>
+    </div>
+    <div class="row g-4 mb-3">
+        {% for i in dept %}
+        <div class="col-md-3">
+            <div class="card text-center">
+
+                <div class="card-body">
+                    <h4 class="card-title">{{i.name}}</h4>
+                    <p class="card-text">Manager: {{i.manager}}</p>
+                    <p>Total Doctor: {{i.doctor_set.all.count}}</p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+
+{% endblock body %}

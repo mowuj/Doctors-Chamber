@@ -1,0 +1,119 @@
+{% extends "doctor/doctorBase.html" %}
+
+{% block title %}
+Doctor Detail
+{% endblock title %}
+{% block body %}
+<div class="row">
+    {% for i in detail %}
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Doctor Info
+            </div>
+            <div class="card-body">
+                <tbody>
+                    <tr>
+                        <td>User Name: {{ i.user.username |title}}</td>
+                        <br>
+                        <td>Doctor Id: {{ i.doctor_id }}</td>
+                        <br>
+                        <td>Title: {{ i.title }}</td>
+                        <br>
+                        <td>Join Date: {{ i.join_date }}</td>
+                        <br>
+                        <td>Department: {{ i.department }}</td>
+                        <br>
+                        <td>Hospital: {{ i.hospital }}</td>
+                        <br>
+
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Doctor Photo
+            </div>
+            <div class="card-body text-center">
+
+                <img class="center" style="width:150px;height:150px;" src="{{i.photo.url}}" alt="">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Personal Info
+            </div>
+            <div class="card-body">
+                <tbody>
+                    <tr>
+
+                        <td>Full Name: {{ i.name }}</td>
+                        <br>
+                        <td>NID : {{ i.nid }}</td>
+                        <br>
+                        <td>Contact Number: {{ i.phone }}</td>
+                        <br>
+                        <td>Email Address: {{ i.email }}</td>
+                        <br>
+                        <td>Father Name: {{ i.father_name }}</td>
+                        <br>
+                        <td>Mother Name: {{ i.mother_name }}</td>
+                        <br>
+                        <td>Permanent Address: {{ i.permanent_address }}</td>
+                        <br>
+                        <td>Present Address: {{ i.present_address }}</td>
+                        <br>
+                    </tr>
+                </tbody>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i>Academic and Job Info
+            </div>
+            <div class="card-body">
+                <tbody>
+                    <tr>
+                        <td>Undergraduate: {{i.undergraduate}}</td>
+                        <br>
+                        <td>College: {{i.college}}</td>
+                        <br>
+                        <td>Graduate: {{i.graduate}}</td>
+                        <br>
+                        <td>Institute: {{i.institute}}</td>
+                        <br>
+                        <td>Degree: {{i.degree}}</td>
+                        <br>
+                        <td>Active: {{i.is_active}}</td>
+                        <br>
+                        <td>Visiting Day: {{i.visit_day}}</td>
+                        <br>
+                        <td>Visiting start: {{i.start_time}}</td>
+                        <br>
+                        <td>Visiting end: {{i.end_time}}</td>
+                        <br>
+                    </tr>
+                </tbody>
+
+            </div>
+
+        </div>
+        <a href="{% url 'doctor-profile-edit' i.id %}"> <button type="button"
+                class="btn btn-outline-primary badge-pill ">Edit</button></a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}

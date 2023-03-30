@@ -1,0 +1,80 @@
+{% extends "doctor/doctorBase.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Doctor Dashboard
+{% endblock title %}
+{% block body %}
+<div class="container">
+    {% for i in lab %}
+    <h3 class="text-center">{{i.name}}</h4>
+        <h5 class="text-center">{{i.manager}}</h5>
+        <h5 class="text-center">{{i.address}}</h5>
+        {% endfor %}
+        <div class="border"></div>
+        <div class="row">
+            <div class="col-md-10 ">
+                <div class="d-flex justify-content-around">
+                    <p>Name: {{serial.name}}</p>
+                    <p>Gender: {{serial.gender}}</p>
+                    <p>Age: {{serial.age}}</p>
+                </div>
+                <div>
+                    <h5 class="text-center">Test Report</h5>
+
+                    {% for i in serial.test_set.all %}
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <h4 class="text-center"> Test Name: {{i.name}}</h4>
+                            {% for i in i.testreport_set.all %}
+                            <h5>Minimum Point: {{i.min_point}}</h5>
+                            <h5>Point: {{i.point}}</h5>
+                            <h5>Maximum Point: {{i.max_point}}</h5>
+                                
+                            {% endfor %}
+                        </div>
+                    
+                    {% endfor %}
+
+
+
+                    <!-- <div class="row">
+                        <div class="col-md-10 d-flex flex-column justify-content-center align-items-center">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Index</th>
+                                        <th scope="col">Name of Test</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in serial.test_set.all %}
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>{{i.name}}</td>
+                                        <td>{{i.name.price}}</td>
+                                        <td><a href="{% url 'report' i.id%}">Go</a></td>
+                                        {% for i in i.testreport_set.all %}
+                                        <td>{{i.test_name}}</td>
+                                        <td>{{i.point}}</td>
+                                        {% endfor %}
+                                    </tr>
+
+                                    {% endfor %}
+                                    <tr>
+
+                                        <th colspan="2" class="text-end">Total=</th>
+                                        <th>TK</th>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button>Submit</button>
+
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock body %}
