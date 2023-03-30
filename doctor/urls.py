@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import *
 urlpatterns = [
+    # Admin 
     path('', adminHome, name='home'),
     path('doctor-login', user_login, name='doctor-login'),
     path('logout', user_logout, name='logout'), 
@@ -43,9 +44,10 @@ urlpatterns = [
     path('delete-serial/<int:id>',  deleteSerial, name='delete-serial'),
 
     path('patient/<int:id>',  patient, name='patient'),
-    # path('delete-medicine/<int:id>',  deleteMedicine, name='delete-medicine'),
+    path('delete-medicine/<int:id>',  deleteMedicine, name='delete-medicine'),
     path('test/<int:id>',  goForTest, name='test'),
     path('tests/<int:id>/<sts>', tests, name='tests'),
+    # path('ttest/<int:pk>', ttest, name='ttest'),
     path('pending-test', PendingTest, name='pending-test'),
     path('report/<int:id>', testReportAdd, name='report'),
     path('testReport/<int:id>', testReport, name='testReport'),

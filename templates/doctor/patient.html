@@ -1,7 +1,7 @@
 {% extends "doctor/doctorBase.html" %}
 {% load crispy_forms_tags %}
 {% block title %}
-Doctor Dashboard
+Prescription
 {% endblock title %}
 {% block body %}
     <div class="container">
@@ -106,7 +106,7 @@ Doctor Dashboard
                                     <td>{{i.midday}}</td>
                                     <td>{{i.before_dinner}}</td>
                                     <td>{{i.night}}</td>
-                                    <td class="text-center"><a href=""><i class="fa-solid fa-delete-left"></i></a></td>
+                                    <td class="text-center"><a href="{% url 'delete-medicine' i.id%}"><i class="fa-solid fa-delete-left"></i></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

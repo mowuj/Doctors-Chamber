@@ -337,10 +337,10 @@ def patient(request,id):
     return render(request, 'doctor/patient.html',context)
 
 
-# def deleteMedicine(request, id):
-#     medicine = Medicine.objects.get(id=id)
-#     medicine = medicine.delete()
-#     return redirect('patient')
+def deleteMedicine(request, id):
+    medicine = Medicine.objects.get(id=id)
+    medicine = medicine.delete()
+    return redirect('patient',id)
 # Test 
 def labHome(request):
     lab=Lab.objects.all()
@@ -429,7 +429,23 @@ def goForTest(request,id):
     patient=Serial.objects.get(id=id)
     test = patient.test_set.filter(pending_status=False, submit_status=False, done_status=False)
     context = {'lab': lab, 'patient': patient, 'test': test}
-    return render(request,'doctor/goForTest.html',context)
+    return render(request,'lab/goForTest.html',context)
+
+# def ttest(request,pk):
+#     test=TestReport.objects.filter(id=pk)
+#     form = TestReportForm()
+#     if request.method == 'POST':
+#         form = TestReportForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             testForm = form.save(commit=False)
+#             testForm.test_name=test
+#             testForm.save()
+#             # form.save()
+#             return redirect('report', id)
+#     form = TestReportForm()
+#     return redirect(request.META['HTTP_REFERER'])
+
+
 
 def PendingTest(request):
     patient = Serial.objects.filter(test_submit=True)
